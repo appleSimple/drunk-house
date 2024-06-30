@@ -5,7 +5,6 @@ export default function LoginLayout({
 }) {
   return (
     <section>
-      <h2>레이아웃</h2>
       {children}
     </section>
   )
