@@ -1,96 +1,45 @@
-import Image from "next/image";
-import styles from "../page.module.css";
+'use client';
+import styles from "./page.module.css";
+import TextField from "@mui/material/TextField";
+import { styled } from "@mui/material/styles";
 
+/**
+ * TODO: 전체 input 스타일 정의하여 임포트해서 사용하기
+ */
+const CustomTextField = styled(TextField)({
+  '& label.Mui-focused': {
+    color: '#A0AAB4',
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: '#B2BAC2',
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: '#E0E3E7',
+    },
+    '&:hover fieldset': {
+      borderColor: '#B2BAC2',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#6F7E8C',
+    },
+  },
+});
+
+/**
+ * TODO
+ * 1. 아이디 정규식: 공백 미허용, 영어와 숫자만 허용
+ * 2. 비밀번호 정규식: 공백 미허용, 영어, 숫자, 특수문자만 허용. 캡스락 경고창 표시, 자동으로 소문자로 변환
+ * 3. API 연동
+ */
 export default function Login() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <h1>로그인</h1>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <div className={styles.login}>
+      <h1>Login</h1>
+      <form className={styles.form}>
+        <CustomTextField label="아이디" variant="standard" size="small" />
+        <CustomTextField label="비밀번호" variant="standard" size="small" type="password" />
+      </form>
+    </div>
   );
 }
