@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Hahmlet } from "next/font/google";
 import Container from "@mui/material/Container/Container";
 import "./globals.css";
+import GlobalStyles from "@mui/material/GlobalStyles";
 
-const inter = Inter({ subsets: ["latin"] });
+const hahmlet = Hahmlet({
+  subsets: ['latin'],
+  variable: '--font-hahmlet',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${hahmlet.className} ${hahmlet.variable}`}>
         <Container maxWidth="sm" sx={{ backgroundColor: 'white', minWidth: '360px' }}>
           {children}
         </Container>

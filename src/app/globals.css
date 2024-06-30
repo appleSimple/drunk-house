@@ -7,3 +7,7 @@
 html, body {
   background-color: aliceblue;
 }
+
+input, label, div {
+  font-family: inherit !important;
+}
