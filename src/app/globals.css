@@ -8,6 +8,6 @@ html, body {
   background-color: aliceblue;
 }
 
-input, label, div {
+input, label, div, button {
   font-family: inherit !important;
 }

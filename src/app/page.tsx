@@ -5,6 +5,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Link href="/login">로그인</Link>
+      <Link href="/signup">회원가입</Link>
     </main>
   );
 }
