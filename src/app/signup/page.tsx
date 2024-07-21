@@ -1,9 +1,15 @@
 'use client';
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import styles from './page.module.css';
 import { BaseInput } from '@/components/base-input';
 import { BaseButton } from '@/components/base-button';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { Gender } from '../constants/enum/gender';
 
 /**
  * TODO
@@ -16,6 +22,11 @@ export default function Signup() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const birthRef = useRef<HTMLInputElement>(null);
   const nicknameRef = useRef<HTMLInputElement>(null);
+  const [gender, setGender] = useState(Gender.MALE);
+
+  const handleChange = (event) => {
+    setGender(event.target.value);
+  };
 
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -23,8 +34,9 @@ export default function Signup() {
       const loginData = {
         userName: userNameRef.current.value,
         password: passwordRef.current.value,
-        // birth: birthRef.current.value,
-        // nickname: nicknameRef.current.value
+        birth: birthRef.current?.value,
+        nickname: nicknameRef.current?.value,
+        gender,
       }
 
       console.log('loginData', loginData);
@@ -38,8 +50,21 @@ export default function Signup() {
         <form className={styles.form} onSubmit={submit}>
           <BaseInput ref={userNameRef} label="아이디" variant="standard" size="small" name="username" autoComplete="username" required />
           <BaseInput ref={passwordRef} label="비밀번호" variant="standard" size="small" name="password" autoComplete="current-password" required />
-          <DatePicker ref={birthRef} label="생년월일" />
+          <DatePicker inputRef={birthRef} label="생년월일" />
           <BaseInput ref={nicknameRef} label="닉네임" variant="standard" size="small" name="nickname" autoComplete="nickname" required />
+          <FormControl>
+            <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="female"
+              name="radio-buttons-group"
+              value={gender}
+              onChange={handleChange}
+            >
+              <FormControlLabel value={Gender.MALE} control={<Radio />} label="남자" />
+              <FormControlLabel value={Gender.FEMALE} control={<Radio />} label="여자" />
+            </RadioGroup>
+          </FormControl>
           <BaseButton type="submit">회원가입</BaseButton>
         </form>
       </div>
