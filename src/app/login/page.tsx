@@ -1,30 +1,8 @@
 'use client';
-import styles from "./page.module.css";
-import TextField from "@mui/material/TextField";
-import { styled } from "@mui/material/styles";
-
-/**
- * TODO: 전체 input 스타일 정의하여 임포트해서 사용하기
- */
-const CustomTextField = styled(TextField)({
-  '& label.Mui-focused': {
-    color: '#A0AAB4',
-  },
-  '& .MuiInput-underline:after': {
-    borderBottomColor: '#B2BAC2',
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: '#E0E3E7',
-    },
-    '&:hover fieldset': {
-      borderColor: '#B2BAC2',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#6F7E8C',
-    },
-  },
-});
+import styles from './page.module.css';
+import { FormEvent, useRef } from 'react';
+import { BaseInput } from '@/components/base-input';
+import { BaseButton } from '@/components/base-button';
 
 /**
  * TODO
@@ -33,13 +11,31 @@ const CustomTextField = styled(TextField)({
  * 3. API 연동
  */
 export default function Login() {
+  const userNameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (userNameRef.current && passwordRef.current) {
+      const loginData = {
+        userName: userNameRef.current.value,
+        password: passwordRef.current.value
+      }
+
+      console.log('loginData', loginData);
+    }
+  }
+
   return (
-    <div className={styles.login}>
-      <h1>Login</h1>
-      <form className={styles.form}>
-        <CustomTextField label="아이디" variant="standard" size="small" />
-        <CustomTextField label="비밀번호" variant="standard" size="small" type="password" />
-      </form>
-    </div>
+    <>
+      <div className={styles.login}>
+        <h1>Login</h1>
+        <form className={styles.form} onSubmit={submit}>
+          <BaseInput ref={userNameRef} label="아이디" variant="standard" size="small" name="username" autoComplete="username" required />
+          <BaseInput ref={passwordRef} label="비밀번호" variant="standard" size="small" name="password" autoComplete="current-password" required />
+          <BaseButton type="submit">로그인</BaseButton>
+        </form>
+      </div>
+    </>
   );
 }
