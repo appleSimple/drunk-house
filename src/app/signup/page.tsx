@@ -1,5 +1,5 @@
 'use client';
-import { FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, FormEventHandler, useEffect, useRef, useState } from 'react';
 import styles from './page.module.css';
 import { BaseInput } from '@/components/base-input';
 import { BaseButton } from '@/components/base-button';
@@ -10,6 +10,10 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Gender } from '../constants/enum/gender';
+import dayjs from 'dayjs';
+import Button from '@mui/material/Button';
+
+import { UserBody, duplicateCheck, signup } from '@/config/api/userService';
 
 /**
  * TODO
@@ -18,29 +22,72 @@ import { Gender } from '../constants/enum/gender';
  * 3. API 연동
  */
 export default function Signup() {
-  const userNameRef = useRef<HTMLInputElement>(null);
+  const [userName, setUserName] = useState('');
   const passwordRef = useRef<HTMLInputElement>(null);
   const birthRef = useRef<HTMLInputElement>(null);
   const nicknameRef = useRef<HTMLInputElement>(null);
-  const [gender, setGender] = useState(Gender.MALE);
+  const [gender, setGender] = useState<UserBody['gender']>(Gender.MALE);
+  const [isCheckDuplication, setIsCheckDuplication] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
-  const handleChange = (event) => {
-    setGender(event.target.value);
+  useEffect(() => {
+    setIsCheckDuplication(false);
+  }, [userName]);
+
+  useEffect(() => {
+    console.log(userName, passwordRef.current?.value, birthRef.current?.value, nicknameRef.current?.value);
+    
+    if (userName && passwordRef.current?.value && birthRef.current?.value && nicknameRef.current?.value) {
+      setIsValid(true);
+    } else setIsValid(false);
+
+    console.log(isValid);
+    
+  }, [userName, passwordRef, birthRef, nicknameRef]);
+
+  const handleGender = (e: ChangeEvent, value: UserBody['gender']) => {
+    setGender(value as UserBody['gender']);
   };
 
-  function submit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (userNameRef.current && passwordRef.current) {
-      const loginData = {
-        userName: userNameRef.current.value,
-        password: passwordRef.current.value,
-        birth: birthRef.current?.value,
-        nickname: nicknameRef.current?.value,
-        gender,
-      }
+  const handleUserName = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserName(e.target.value);
+  }
 
-      console.log('loginData', loginData);
+  async function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    
+    if (!isCheckDuplication) return;
+    if (!isValid) return;
+
+    const body = {
+      userName: userName,
+      password: passwordRef.current?.value,
+      birth: dayjs(birthRef.current?.value).format('YYYYMMDD'),
+      nick: nicknameRef.current?.value,
+      gender,
+    };
+
+    try {
+      // TODO type 정의하기
+      const response = await signup(body);
+      console.log(response);
+    } catch {
+      console.error('error');   
     }
+  }
+
+  async function checkDuplication() {
+    const value = userName;
+    if (!value) return;
+
+    try {
+      await duplicateCheck(value);
+      setIsCheckDuplication(true);
+    } catch {
+      setIsCheckDuplication(false);
+    }
+    
+    console.log(isCheckDuplication);
   }
 
   return (
@@ -48,7 +95,8 @@ export default function Signup() {
       <div className={styles.login}>
         <h1>Signup</h1>
         <form className={styles.form} onSubmit={submit}>
-          <BaseInput ref={userNameRef} label="아이디" variant="standard" size="small" name="username" autoComplete="username" required />
+          <BaseInput value={userName} onChange={handleUserName} label="아이디" variant="standard" size="small" name="username" autoComplete="username" required />
+          <Button onClick={checkDuplication} variant="outlined">중복 확인</Button>
           <BaseInput ref={passwordRef} label="비밀번호" variant="standard" size="small" name="password" autoComplete="current-password" required />
           <DatePicker inputRef={birthRef} label="생년월일" />
           <BaseInput ref={nicknameRef} label="닉네임" variant="standard" size="small" name="nickname" autoComplete="nickname" required />
@@ -59,7 +107,7 @@ export default function Signup() {
               defaultValue="female"
               name="radio-buttons-group"
               value={gender}
-              onChange={handleChange}
+              onChange={handleGender}
             >
               <FormControlLabel value={Gender.MALE} control={<Radio />} label="남자" />
               <FormControlLabel value={Gender.FEMALE} control={<Radio />} label="여자" />
