@@ -1,4 +1,4 @@
-import { Gender } from '@/app/constants/enum/gender';
+import { Gender } from '@/constants/enum/gender';
 import { post } from './index';
 
 interface LoginInterface {

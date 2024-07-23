@@ -9,7 +9,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Gender } from '../constants/enum/gender';
+import { Gender } from '../../constants/enum/gender';
 import dayjs from 'dayjs';
 import Button from '@mui/material/Button';
 
