@@ -1,9 +1,10 @@
 'use client';
+import { useRouter } from 'next/navigation'
 import styles from './page.module.css';
 import { FormEvent, useRef } from 'react';
 import { BaseInput } from '@/components/base-input';
 import { BaseButton } from '@/components/base-button';
-import { login } from '@/config/api/userService';
+import { login } from '@/config/api/user-service';
 
 /**
  * TODO
@@ -11,9 +12,10 @@ import { login } from '@/config/api/userService';
  * 2. 비밀번호 정규식: 공백 미허용, 영어, 숫자, 특수문자만 허용. 캡스락 경고창 표시, 자동으로 소문자로 변환
  */
 export default function Login() {
+  const router = useRouter()
   const userNameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-
+ 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (userNameRef.current && passwordRef.current) {
@@ -24,8 +26,7 @@ export default function Login() {
 
       try {
         const response = await login(body);
-        console.log('response', response);
-        // TODO: 메인으로 이동
+        router.push('/home');
       } catch(error) {
         console.error(error);
       }
