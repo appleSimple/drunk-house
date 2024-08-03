@@ -10,8 +10,8 @@ import { Drink } from '@/types/drink';
 type Props = Drink;
 
 function Card(props: Props) {
-  const { name, category, profile, abv } = props;
-
+  const { id, name, category, profile, abv } = props;
+  
   return (
     <CardComponent sx={{ maxWidth: 345 }}>
       <CardMedia sx={{ height: 140 }} image={profile} title="green iguana" />
