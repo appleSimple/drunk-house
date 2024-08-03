@@ -4,21 +4,17 @@ import { getTotalDrinkList, Condition } from '@/config/api/drink-service';
 import { Drink, DrinkCategory } from '@/types/drink';
 import Card from './card';
 
-type Props = {
-  drinkList: Drink[];
-  category?: DrinkCategory;
-  keyword?: string;
-  page: number;
-  size: number;
+type Props<T> = {
+  list: T[];
 }
 
-function CardList(props: Props) {
-  const { category, keyword, page, size, drinkList } = props;
+function CardList<T,>(props: Props<T>) {
+  const { list } = props;
 
   return (
     <>
-      {drinkList.map((drink) => (
-        <Card key={drink.id} id={drink.id} name={drink.name} category={drink.category} profile={drink.profile} abv={drink.abv}  />
+      {list.map((el) => (
+        <Card key={el.id} id={el.id} name={el.name} category={el.category} profile={el.profile} abv={el.abv}  />
       ))}
     </>
   )
