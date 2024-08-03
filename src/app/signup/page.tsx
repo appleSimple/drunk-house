@@ -13,7 +13,7 @@ import { Gender } from '../../constants/enum/gender';
 import dayjs from 'dayjs';
 import Button from '@mui/material/Button';
 
-import { UserBody, duplicateCheck, signup } from '@/config/api/userService';
+import { UserBody, duplicateCheck, signup } from '@/config/api/user-service';
 
 /**
  * TODO
