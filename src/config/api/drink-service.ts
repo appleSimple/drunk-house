@@ -21,7 +21,7 @@ const getTotalDrinkList = async (pageable: Pageable, condition?: Condition) => {
     size: String(pageable.size),
   };
 
-  const params = new URLSearchParams(obj);
+  const params = new URLSearchParams(obj as any);
 
   return get(`${DRINK}?${params.toString()}`);
 };

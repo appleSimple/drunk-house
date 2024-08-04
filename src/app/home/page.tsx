@@ -27,8 +27,10 @@ export default function Home() {
 
     const pageable = { page, size };
 
-    const response = await getTotalDrinkList(pageable, condition);
-    setDrinkList((prev) => [...prev, ...response.data.drinks]);
+    const { data } = await getTotalDrinkList(pageable, condition);
+    const { drinks } = data as any;
+
+    setDrinkList((prev) => [...prev, ...drinks]);
   }
 
   function handleCategory(category: any) {

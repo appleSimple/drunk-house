@@ -28,7 +28,7 @@ export default function Signup() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const birthRef = useRef<HTMLInputElement>(null);
   const nicknameRef = useRef<HTMLInputElement>(null);
-  const [gender, setGender] = useState<UserBody['gender']>(Gender.MALE);
+  const [gender, setGender] = useState(Gender.MALE);
   const [isCheckDuplication, setIsCheckDuplication] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
@@ -47,8 +47,8 @@ export default function Signup() {
     
   }, [userName, passwordRef, birthRef, nicknameRef]);
 
-  const handleGender = (e: ChangeEvent, value: UserBody['gender']) => {
-    setGender(value as UserBody['gender']);
+  const handleGender = (e: ChangeEvent, value: any) => {
+    setGender(value);
   };
 
   const handleUserName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +67,7 @@ export default function Signup() {
       birth: dayjs(birthRef.current?.value).format('YYYYMMDD'),
       nick: nicknameRef.current?.value,
       gender,
-    };
+    } as any;
 
     try {
       // TODO type 정의하기

@@ -36,7 +36,7 @@ export default function Login() {
 
       try {
         const response = await login(body);
-        updateUserInfo(response.data);
+        updateUserInfo(response.data as any);
         router.push('/home');
       } catch(error) {
         console.error(error);
