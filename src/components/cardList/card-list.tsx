@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { getTotalDrinkList, Condition } from '@/config/api/drink-service';
 import { Drink, DrinkCategory } from '@/types/drink';
 import styles from './card-list.module.css';
-import Card from '../card';
+import Card from '../card/card';
 
 type Props<T> = {
   list: T[];

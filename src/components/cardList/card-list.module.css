@@ -1,5 +1,11 @@
 .cardList {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+}
+
+@media screen and (max-width: 460px) {
+  .cardList {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
