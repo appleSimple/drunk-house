@@ -1,0 +1,16 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.logo:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 460px) {
+  .logo {
+    font-size: 2.5rem;
+  }
+}
