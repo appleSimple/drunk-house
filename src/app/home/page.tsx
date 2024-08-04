@@ -6,20 +6,22 @@ import { Condition, getTotalDrinkList } from '@/config/api/drink-service';
 import { Drink } from '@/types/drink';
 import DrinkCategoryName from '@/constants/enumToName/drink-category';
 import { DrinkCategoryEnum } from '@/constants/enum/drink-category';
+import Link from 'next/link';
+import Button from '@mui/material/Button';
 
 export default function Home() {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
-  const [category, setCategory] = useState<Partial<Condition>>('');
+  const [category, setCategory] = useState<Partial<Condition>>('ALL');
   const [drinkList, setDrinkList] = useState<Drink[]>([]);
 
   useEffect(() => {
     fetchDrinkList();
   }, [category]);
-  
+
   async function fetchDrinkList() {
     const condition: Partial<Condition> = {};
-     
+
     if (category && category !== 'ALL') condition.category = category;
     // if (keyword) condition.keyword = keyword;
 
@@ -31,7 +33,7 @@ export default function Home() {
 
   function handleCategory(category: string) {
     console.log('category', category);
-    
+
     setCategory(category);
     setDrinkList([]);
     setPage(0);
@@ -40,10 +42,18 @@ export default function Home() {
   return (
     <>
       <div className={styles.dashboard}>
-        <h1>Drunk House</h1>
-        {Object.keys(DrinkCategoryName).map((category) => (
-          <button key={category} onClick={() => handleCategory(category)}>{DrinkCategoryName[category]}</button>
-        ))}
+        <div className={styles.row}>
+          <Button color="secondary" size="small">
+            <Link href="/home/my-page" className={styles.myPage}>마이 페이지</Link>
+          </Button>
+        </div>
+        <div className={styles.cardList}>
+          {Object.keys(DrinkCategoryName).map((el) => (
+            <Button variant={el ===  category? 'contained' : 'outlined'} size="small" key={el} onClick={() => handleCategory(el)}>
+              {DrinkCategoryName[el]}
+            </Button>
+          ))}
+        </div>
         <CardList list={drinkList} />
       </div>
     </>

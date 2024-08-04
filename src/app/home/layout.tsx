@@ -5,6 +5,7 @@ export default function HomeLayout({
 }) {
   return (
     <section>
+      <h1>🍷 Drunk House</h1>
       {children}
     </section>
   )
