@@ -24,7 +24,7 @@ export default function RootLayout({
       <meta name="description" content="My page description" />
       <body className={`${hahmlet.className} ${hahmlet.variable}`}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Container maxWidth="sm" sx={{ backgroundColor: 'white', minWidth: '360px' }}>
+        <Container maxWidth="sm" sx={{ backgroundColor: 'white', minWidth: '360px' }} className="container">
           {children}
         </Container>
       </LocalizationProvider>
