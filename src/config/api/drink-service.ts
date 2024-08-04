@@ -22,8 +22,12 @@ const getTotalDrinkList = async (pageable: Pageable, condition?: Condition) => {
   };
 
   const params = new URLSearchParams(obj);
-  
+
   return get(`${DRINK}?${params.toString()}`);
 };
 
-export { getTotalDrinkList };
+const getDrinkDetail = async (id: number) => {
+  return get(`${DRINK}/${id}`);
+};
+
+export { getTotalDrinkList, getDrinkDetail };
