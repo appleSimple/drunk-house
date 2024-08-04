@@ -22,7 +22,7 @@ export default function RootLayout({
       <meta charSet="utf-8" />
       <title>My page</title>
       <meta name="description" content="My page description" />
-      <body className={`${roboto.className} ${roboto.variable}`}>
+      <body className={`${roboto.className}`}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Container maxWidth="sm" sx={{ backgroundColor: 'white', minWidth: '360px' }} className="container">
           {children}
