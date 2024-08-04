@@ -43,13 +43,20 @@ export default function Home() {
     <>
       <div className={styles.dashboard}>
         <div className={styles.row}>
-          <Button color="secondary" size="small">
-            <Link href="/home/my-page" className={styles.myPage}>마이 페이지</Link>
+          <Button variant="text" size="small">
+            <Link href="/home/my-page" className={styles.myPage}>
+              마이 페이지
+            </Link>
           </Button>
         </div>
         <div className={styles.cardList}>
           {Object.keys(DrinkCategoryName).map((el) => (
-            <Button variant={el ===  category? 'contained' : 'outlined'} size="small" key={el} onClick={() => handleCategory(el)}>
+            <Button
+              variant={el === category ? 'contained' : 'outlined'}
+              size="small"
+              key={el}
+              onClick={() => handleCategory(el)}
+            >
               {DrinkCategoryName[el]}
             </Button>
           ))}
