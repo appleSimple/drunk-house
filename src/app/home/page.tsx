@@ -1,7 +1,7 @@
 'use client';
 import styles from './page.module.css';
 import { useEffect, useState } from 'react';
-import CardList from '@/components/card-list';
+import CardList from '@/components/cardList/card-list';
 import { Condition, getTotalDrinkList } from '@/config/api/drink-service';
 import { Drink } from '@/types/drink';
 import DrinkCategoryName from '@/constants/enumToName/drink-category';
@@ -19,13 +19,13 @@ export default function Home() {
   
   async function fetchDrinkList() {
     const condition: Partial<Condition> = {};
-    if (category) condition.category = category;
+     
+    if (category && category !== 'ALL') condition.category = category;
     // if (keyword) condition.keyword = keyword;
 
     const pageable = { page, size };
 
     const response = await getTotalDrinkList(pageable, condition);
-
     setDrinkList((prev) => [...prev, ...response.data.drinks]);
   }
 
@@ -40,6 +40,7 @@ export default function Home() {
   return (
     <>
       <div className={styles.dashboard}>
+        <h1>Drunk House</h1>
         {Object.keys(DrinkCategoryName).map((category) => (
           <button key={category} onClick={() => handleCategory(category)}>{DrinkCategoryName[category]}</button>
         ))}

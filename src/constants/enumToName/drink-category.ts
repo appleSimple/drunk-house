@@ -1,4 +1,5 @@
 enum DrinkCategoryName {
+  'ALL' = '전체',
   'SHOCHU' = '소주',
   'BEER' = '맥주',
   'MAKGEOLLI' = '막걸리',

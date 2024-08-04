@@ -1,4 +1,5 @@
 enum DrinkCategoryEnum {
+  ALL = 'ALL',
   SHOCHU = 'SHOCHU',
   BEER = 'BEER',
   MAKGEOLLI = 'MAKGEOLLI',
