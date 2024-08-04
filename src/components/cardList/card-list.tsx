@@ -11,11 +11,11 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 
-type Props<T> = {
-  list: T[];
+type Props = {
+  list: Drink[];
 };
 
-function CardList<T>(props: Props<T>) {
+function CardList(props: Props) {
   const { list } = props;
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState({ name: '', content: '' });
@@ -36,7 +36,7 @@ function CardList<T>(props: Props<T>) {
     <>
       <div className={styles.cardList}>
         {list.map((el) => (
-          <div onClick={() => handleClickOpen(el)}>
+          <div onClick={() => handleClickOpen(el as Drink)}>
             <Card
               key={el.id}
               id={el.id}

@@ -23,7 +23,7 @@ const getReviewList = async (userId: number, pageable: Pageable, condition?: Con
     memberId: String(userId),
   };
 
-  const params = new URLSearchParams(obj);
+  const params = new URLSearchParams(obj as any);
 
   return get(`${DRINK}?${params.toString()}`);
 };
