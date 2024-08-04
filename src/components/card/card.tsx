@@ -9,6 +9,7 @@ import { Drink } from '@/types/drink';
 import DrinkCategoryName from '@/constants/enumToName/drink-category';
 import styles from './card.module.css';
 import Chip from '@mui/material/Chip';
+import { DrinkCategoryEnum } from '@/constants/enum/drink-category';
 
 type Props = Drink;
 
@@ -17,7 +18,7 @@ function Card(props: Props) {
   
   return (
     <CardComponent sx={{ maxWidth: 460 }} className={styles.card}>
-      <Chip label={DrinkCategoryName[category] as string} size='small' className={styles.chip} />
+      <Chip label={DrinkCategoryName[category as DrinkCategoryEnum]} size='small' className={styles.chip} />
       <CardMedia sx={{ height: 140 }} image={profile} title="green iguana" />
       <CardContent className={styles.cardContents}>
         <Typography gutterBottom variant="inherit" component="div">

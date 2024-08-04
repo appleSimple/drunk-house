@@ -55,7 +55,7 @@ export default function Home() {
               key={el}
               onClick={() => handleCategory(el)}
             >
-              {DrinkCategoryName[el]}
+              {DrinkCategoryName[el as keyof typeof DrinkCategoryName]}
             </Button>
           ))}
         </div>
