@@ -1,8 +1,24 @@
 .myPage {
-  
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .info {
   display: flex;
   justify-content: space-between;
+}
+
+.cardList {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
 }

@@ -7,9 +7,16 @@ import DrinkCategoryName from '@/constants/enumToName/drink-category';
 import { useUserStore } from '@/store/useUserStore';
 import { useRouter } from 'next/navigation';
 import { getReviewList, Condition } from '@/config/api/review-service';
+import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
+
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 export default function MyPage() {
-  const router = useRouter()
+  const router = useRouter();
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
   const [category, setCategory] = useState<Partial<Condition>>('');
@@ -21,10 +28,10 @@ export default function MyPage() {
   useEffect(() => {
     if (userId !== -1) fetchDrinkList();
   }, [category, userId]);
-  
+
   async function fetchDrinkList() {
     const condition: Partial<Condition> = {};
-    
+
     if (category && category !== 'ALL') condition.category = category;
     // if (keyword) condition.keyword = keyword;
 
@@ -32,7 +39,7 @@ export default function MyPage() {
 
     const response = await getReviewList(userId, pageable, condition);
     console.log('response', response);
-    
+
     // setDrinkList((prev) => [...prev, ...response.data.drinks]);
   }
 
@@ -43,18 +50,34 @@ export default function MyPage() {
   }
 
   return (
-    <>
-      <div className={styles.myPage}>
-        <div className={styles.info}>
-          <h2>{nickName}님, 안녕하세요!</h2>
-          <button type='button' onClick={() => router.push('/login')}>로그아웃</button>
-        </div>
-        <div>내가 저장한 Drinks</div>
-        {Object.keys(DrinkCategoryName).map((category) => (
-          <button key={category} onClick={() => handleCategory(category)}>{DrinkCategoryName[category]}</button>
-        ))}
-        <CardList list={drinkList} />
+    <div className={styles.myPage}>
+      <div className={styles.row}>
+        <h2>{nickName}님, 안녕하세요!</h2>
+        <Button variant="text" size="small" onClick={() => router.push('/login')}>
+          로그아웃
+        </Button>
       </div>
-    </>
+
+      <div className={styles.row}>
+        <Typography variant="h5">나의 리뷰</Typography>
+        <Button variant="contained" size="small">
+          추가하기
+        </Button>
+      </div>
+
+      <div className={styles.cardList}>
+        {Object.keys(DrinkCategoryName).map((el) => (
+          <Button
+            variant={el === category ? 'contained' : 'outlined'}
+            size="small"
+            key={el}
+            onClick={() => handleCategory(el)}
+          >
+            {DrinkCategoryName[el]}
+          </Button>
+        ))}
+      </div>
+      <CardList list={drinkList} />
+    </div>
   );
 }
