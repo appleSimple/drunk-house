@@ -1,5 +1,5 @@
 'use client';
-import { ChangeEvent, FormEvent, FormEventHandler, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import styles from './page.module.css';
 import { BaseInput } from '@/components/base-input';
 import { BaseButton } from '@/components/base-button';
@@ -14,6 +14,8 @@ import dayjs from 'dayjs';
 import Button from '@mui/material/Button';
 
 import { UserBody, duplicateCheck, signup } from '@/config/api/user-service';
+import TextField from '@mui/material/TextField';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 /**
  * TODO
@@ -70,7 +72,6 @@ export default function Signup() {
     try {
       // TODO type 정의하기
       const response = await signup(body);
-      console.log(response);
     } catch {
       console.error('error');   
     }
@@ -92,14 +93,15 @@ export default function Signup() {
 
   return (
     <>
-      <div className={styles.login}>
-        <h1>Signup</h1>
+      <div className={styles.signup}>
         <form className={styles.form} onSubmit={submit}>
-          <BaseInput value={userName} onChange={handleUserName} label="아이디" variant="standard" size="small" name="username" autoComplete="username" required />
-          <Button onClick={checkDuplication} variant="outlined">중복 확인</Button>
-          <BaseInput ref={passwordRef} label="비밀번호" variant="standard" size="small" name="password" autoComplete="current-password" required />
+          <div className={styles.userId}>
+            <TextField value={userName} onChange={handleUserName} label="아이디" variant="filled" size="small" name="username" autoComplete="username" required />
+            <Button onClick={checkDuplication} variant="outlined">중복 확인</Button>
+          </div>
+          <TextField inputRef={passwordRef} label="비밀번호" variant="filled" size="small" name="password" autoComplete="current-password" required />
           <DatePicker inputRef={birthRef} label="생년월일" />
-          <BaseInput ref={nicknameRef} label="닉네임" variant="standard" size="small" name="nickname" autoComplete="nickname" required />
+          <TextField inputRef={nicknameRef} label="닉네임" variant="filled" size="small" name="nickname" autoComplete="nickname" required />
           <FormControl>
             <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
             <RadioGroup
@@ -113,7 +115,7 @@ export default function Signup() {
               <FormControlLabel value={Gender.FEMALE} control={<Radio />} label="여자" />
             </RadioGroup>
           </FormControl>
-          <BaseButton type="submit">회원가입</BaseButton>
+          <Button type="submit" variant='contained' size='large'>회원가입</Button>
         </form>
       </div>
     </>
