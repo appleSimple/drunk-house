@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 export default function Home() {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
-  const [category, setCategory] = useState<Partial<Condition>>('ALL');
+  const [category, setCategory] = useState(DrinkCategoryEnum.ALL);
   const [drinkList, setDrinkList] = useState<Drink[]>([]);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function Home() {
   }, [category]);
 
   async function fetchDrinkList() {
-    const condition: Partial<Condition> = {};
+    const condition: any = {};
 
     if (category && category !== 'ALL') condition.category = category;
     // if (keyword) condition.keyword = keyword;
@@ -31,9 +31,7 @@ export default function Home() {
     setDrinkList((prev) => [...prev, ...response.data.drinks]);
   }
 
-  function handleCategory(category: string) {
-    console.log('category', category);
-
+  function handleCategory(category: any) {
     setCategory(category);
     setDrinkList([]);
     setPage(0);

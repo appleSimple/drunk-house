@@ -5,7 +5,7 @@ import { DrinkCategory } from '@/types/drink';
 const DRINK = '/drink';
 
 export type Condition = {
-  category?: DrinkCategory;
+  category?: DrinkCategory & 'ALL';
   keyword?: string;
 };
 
