@@ -36,9 +36,8 @@ function CardList(props: Props) {
     <>
       <div className={styles.cardList}>
         {list.map((el) => (
-          <div onClick={() => handleClickOpen(el as Drink)}>
+          <div onClick={() => handleClickOpen(el as Drink)} key={el.id}>
             <Card
-              key={el.id}
               id={el.id}
               name={el.name}
               category={el.category}
